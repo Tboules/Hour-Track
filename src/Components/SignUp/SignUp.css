@@ -1,0 +1,22 @@
+.signUpContainer {
+  margin: auto;
+  width: 500px;
+  height: auto;
+  padding: 30px;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+}
+
+.signUp {
+  display: flex;
+  flex-direction: column;
+}
+
+.iUp {
+  margin: 1px;
+}
+
+.signUp > .signUpButton {
+  width: 20%;
+  align-self: center;
+  margin-top: 15px;
+}

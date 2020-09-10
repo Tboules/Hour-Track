@@ -14,7 +14,13 @@
 .nav {
   display: inline-block;
   padding: 12px;
+  cursor: pointer;
 }
+
+.nav:hover {
+  border-bottom: 1px solid green;
+}
+
 .userNav {
   list-style-type: none;
   margin: 20px;

@@ -19,36 +19,37 @@ function App() {
   const [userId, setUserId] = React.useState(null);
 
   // todo database listener
-  useEffect(() => {
-    db.collection("todos")
-      .orderBy("time", "desc")
-      .onSnapshot((shot) => {
-        setListItems(
-          shot.docs.map((doc) => {
-            return { id: doc.id, todo: doc.data().todo };
-          })
-        );
-      });
-  }, []);
+  // useEffect(() => {
+  //   db.collection("todos")
+  //     .orderBy("time", "desc")
+  //     .onSnapshot((shot) => {
+  //       setListItems(
+  //         shot.docs.map((doc) => {
+  //           return { id: doc.id, todo: doc.data().todo };
+  //         })
+  //       );
+  //     });
+  // }, []);
 
   // finished items database listener
-  useEffect(() => {
-    db.collection("finished")
-      .orderBy("time", "desc")
-      .onSnapshot((shot) => {
-        setFinishItems(
-          shot.docs.map((doc) => {
-            return { id: doc.id, todo: doc.data().todo };
-          })
-        );
-      });
-  }, []);
+  //useEffect(() => {
+  //   db.collection("finished")
+  //     .orderBy("time", "desc")
+  //     .onSnapshot((shot) => {
+  //       setFinishItems(
+  //         shot.docs.map((doc) => {
+  //           return { id: doc.id, todo: doc.data().todo };
+  //         })
+  //       );
+  //     });
+  // }, []);
 
   // user auth listener
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setRoute("home");
+        setUserId(authUser.uid);
         console.log(userId);
       } else {
         if (route !== "signUp") {
@@ -64,13 +65,27 @@ function App() {
   //handles Todo list items
   const handleListItems = (event) => {
     event.preventDefault();
+    let incTodo = 1;
     let todoInputValue = event.target.elements.todoListInput.value;
-    db.collection("todos").doc().add({
-      todo: todoInputValue,
-      time: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    db.collection("users")
+      .doc(userId)
+      .set(
+        {
+          todoList: {
+            key: incTodo,
+            todo: todoInputValue,
+            time: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+        },
+        { merge: true }
+      );
+    incTodo++;
     event.target.reset();
   };
+  // db.collection("todos").add({
+  //   todo: todoInputValue,
+  //   time: firebase.firestore.FieldValue.serverTimestamp(),
+  // });
 
   //handles finished Todo items
   const finishListItem = (item) => {
@@ -87,7 +102,7 @@ function App() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        setUserId(authUser.user.uid);
+        const userUid = authUser.user.uid;
         const email = authUser.user.email;
 
         const info = {
@@ -97,7 +112,7 @@ function App() {
           todoList: [],
         };
 
-        db.collection("users").doc(userId).set(info);
+        db.collection("users").doc(userUid).set(info);
       })
       .catch((error) => alert(error.message));
   };
@@ -107,9 +122,6 @@ function App() {
     event.preventDefault();
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        setUserId(authUser.user.uid);
-      })
       .catch((error) => alert(error.message));
   };
 

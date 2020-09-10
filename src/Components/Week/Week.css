@@ -1,0 +1,22 @@
+.weekBar {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: space-evenly;
+  align-content: center;
+  background-color: lightblue;
+  padding: 20px;
+  box-shadow: inset 0px 2px 4px 2px rgba(0, 0, 0, 0.465);
+}
+
+.weekCard {
+  align-self: center;
+  height: 180px;
+  width: 160px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 5px;
+}
+
+.weekCard:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}

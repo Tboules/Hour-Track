@@ -2,6 +2,9 @@ import React from "react";
 import "./Week.css";
 
 const Week = ({ finishItems }) => {
+  //const [itemTimes, setItemTimes] = React.useState([])
+
+
   const weekCards = [
     { id: 1, day: "Sunday", finishedItems: [] },
     { id: 2, day: "Monday", finishedItems: [] },
@@ -11,17 +14,23 @@ const Week = ({ finishItems }) => {
     { id: 6, day: "Friday", finishedItems: [] },
     { id: 7, day: "Saturday", finishedItems: [] },
   ];
+  
 
-  const selectDay = () => {
-    const now = new Date();
-    weekCards.forEach((day) => {
-      if (now.getDay() === day.id - 1) {
-        day.finishedItems = finishItems;
-      }
-    });
-  };
+  finishItems.forEach(item => {
+    if (item.time) {
+      let dates = new Date(item.time.seconds * 1000)
+      weekCards[dates.getDay()].finishedItems.push(item)
+    } else {
+      return null;
+    }  
+  })
 
-  selectDay();
+  // console.log(
+  //   finishItems.map(date => {
+  //     let dates = new Date(date.time.seconds * 1000)
+  //     return dates.getDay()  
+  //   })
+  // )
 
   return (
     <div className="weekBar">

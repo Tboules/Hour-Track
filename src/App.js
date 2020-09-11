@@ -42,7 +42,7 @@ function App() {
       .onSnapshot((shot) => {
         setFinishItems(
           shot.docs.map((doc) => {
-            return { id: doc.id, todo: doc.data().todo };
+            return { id: doc.id, todo: doc.data().todo, time: doc.data().time };
           })
         );
       });
@@ -54,8 +54,8 @@ function App() {
       if (authUser) {
         setRoute("home");
         setUserId(authUser.uid);
-        console.log(userId);
       } else {
+        // reset all state here so that when someone signs in, they will not see the previous state
         if (route !== "signUp") {
           setRoute("signIn");
         }

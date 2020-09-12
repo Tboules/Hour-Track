@@ -56,6 +56,12 @@ function App() {
         setUserId(authUser.uid);
       } else {
         // reset all state here so that when someone signs in, they will not see the previous state
+        setListItems([]);
+        setFinishItems([]);
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setUserId("HourUser");
         if (route !== "signUp") {
           setRoute("signIn");
         }

@@ -16,36 +16,39 @@ function App() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [route, setRoute] = React.useState(null);
-  const [userId, setUserId] = React.useState("HourUser");
+  const [userId, setUserId] = React.useState(null);
 
   //todo database listener
-  useEffect(() => {
-    db.collection("users")
-      .doc(userId)
-      .collection("todoList")
-      .orderBy("time", "desc")
-      .onSnapshot((shot) => {
-        setListItems(
-          shot.docs.map((doc) => {
-            return { id: doc.id, todo: doc.data().todo };
-          })
-        );
-      });
-  }, [userId]);
-
   // finished items database listener
   useEffect(() => {
-    db.collection("users")
-      .doc(userId)
-      .collection("finishList")
-      .orderBy("time", "desc")
-      .onSnapshot((shot) => {
-        setFinishItems(
-          shot.docs.map((doc) => {
-            return { id: doc.id, todo: doc.data().todo, time: doc.data().time };
-          })
-        );
-      });
+    if (userId) {
+      db.collection("users")
+        .doc(userId)
+        .collection("finishList")
+        .orderBy("time", "desc")
+        .onSnapshot((shot) => {
+          setFinishItems(
+            shot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                todo: doc.data().todo,
+                time: doc.data().time,
+              };
+            })
+          );
+        });
+      db.collection("users")
+        .doc(userId)
+        .collection("todoList")
+        .orderBy("time", "desc")
+        .onSnapshot((shot) => {
+          setListItems(
+            shot.docs.map((doc) => {
+              return { id: doc.id, todo: doc.data().todo };
+            })
+          );
+        });
+    }
   }, [userId]);
 
   // user auth listener

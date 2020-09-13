@@ -7,7 +7,12 @@ const SignIn = ({ email, passWord, onSignIn }) => {
       <form onSubmit={onSignIn} className="signUp">
         <h1>Welcome Back!</h1>
         <input onChange={email} className="iUp" placeholder="Email" />
-        <input onChange={passWord} className="iUp" placeholder="Password" />
+        <input
+          type="password"
+          onChange={passWord}
+          className="iUp"
+          placeholder="Password"
+        />
         <button type="submit" className="signUpButton">
           Sign In
         </button>

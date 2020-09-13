@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import "./Week.css";
-import { thisWeek, lastWeek, firstWeekDay } from "./dates";
+import { getThisWeek } from "./dates";
 import {
   CarouselProvider,
   Slider,
@@ -12,10 +12,11 @@ import {
 import "pure-react-carousel/dist/react-carousel.es.css";
 import moment from "moment";
 
+const NOW = moment();
+
 const Week = ({ finishItems }) => {
-  // const [currentWeek, setCurrentWeek] = React.useState([]);
-
-  const weekCards = [
+  const [currentWeek, setCurrentWeek] = React.useState(new Date());
+  const [weekCards, setWeekCards] = React.useState([
     { id: 1, day: "Sunday", finishedItems: [] },
     { id: 2, day: "Monday", finishedItems: [] },
     { id: 3, day: "Tuesday", finishedItems: [] },
@@ -23,87 +24,71 @@ const Week = ({ finishItems }) => {
     { id: 5, day: "Thursday", finishedItems: [] },
     { id: 6, day: "Friday", finishedItems: [] },
     { id: 7, day: "Saturday", finishedItems: [] },
-  ];
+  ]);
 
-  const prevWeekCards = [
-    { id: 1, day: "Sunday", finishedItems: [] },
-    { id: 2, day: "Monday", finishedItems: [] },
-    { id: 3, day: "Tuesday", finishedItems: [] },
-    { id: 4, day: "Wednesday", finishedItems: [] },
-    { id: 5, day: "Thursday", finishedItems: [] },
-    { id: 6, day: "Friday", finishedItems: [] },
-    { id: 7, day: "Saturday", finishedItems: [] },
-  ];
+  // use state to check the week of the year (1-52) and filter through finish items and push accordingly
+  // framer motion for carousel (hard mode)
 
-  finishItems.forEach((item) => {
-    if (item.time) {
-      let weekCheck = moment(item.time.seconds * 1000).isBefore(firstWeekDay);
-      let day = moment(item.time.seconds * 1000).day();
-      if (!weekCheck) {
-        weekCards[day].finishedItems.push(item);
-      } else if (weekCheck) {
-        prevWeekCards[day].finishedItems.push(item);
+  React.useEffect(() => {
+    console.log("useEffect");
+    const freshWeek = [
+      { id: 1, day: "Sunday", finishedItems: [] },
+      { id: 2, day: "Monday", finishedItems: [] },
+      { id: 3, day: "Tuesday", finishedItems: [] },
+      { id: 4, day: "Wednesday", finishedItems: [] },
+      { id: 5, day: "Thursday", finishedItems: [] },
+      { id: 6, day: "Friday", finishedItems: [] },
+      { id: 7, day: "Saturday", finishedItems: [] },
+    ];
+    // building out fresh week cards so we do not get duplicates
+
+    finishItems.forEach((item) => {
+      if (item.time) {
+        const itemDate = moment(item.time.toDate());
+        if (
+          itemDate.isBetween(
+            moment(currentWeek).startOf("week").toDate(),
+            moment(currentWeek).endOf("week").toDate()
+          )
+        ) {
+          let day = itemDate.day();
+          freshWeek[day].finishedItems.push(item);
+        }
       }
-    } else {
-      return null;
-    }
-  });
+    });
+    setWeekCards(freshWeek);
+  }, [currentWeek, finishItems]);
+
+  const goToPreviousWeek = () => {
+    setCurrentWeek(moment(currentWeek).subtract(1, "weeks").toDate());
+    console.log(currentWeek);
+  };
+
+  const goToNextWeek = () => {
+    setCurrentWeek(moment(currentWeek).add(1, "weeks").toDate());
+  };
 
   return (
-    <CarouselProvider
-      naturalSlideHeight={200}
-      naturalSlideWidth={1200}
-      totalSlides={2}
-      currentSlide={1}
-      isIntrinsicHeight={true}
-    >
-      <Slider>
-        <Slide index={0}>
-          <div className="weekBar">
-            <ButtonBack className="carButton">👈</ButtonBack>
-            <div className="weekOptions">
-              <h3>{lastWeek}</h3>
-              <button>Save to google Calendar</button>
-            </div>
-            {prevWeekCards.map((weekday) => {
-              return (
-                <div className="weekCard" key={weekday.id}>
-                  <label className={`days ${weekday.day}`}>{weekday.day}</label>
-                  <ul>
-                    {weekday.finishedItems.map((item) => {
-                      return <li key={item.id}>{item.todo}</li>;
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-            <ButtonNext className="carButton">👉</ButtonNext>
+    <div className="weekBar">
+      <div className="weekOptions">
+        <h3>{getThisWeek(currentWeek)}</h3>
+        <button>Save to google Calendar</button>
+      </div>
+      {weekCards.map((weekday) => {
+        return (
+          <div className="weekCard" key={weekday.id}>
+            <label className={`days ${weekday.day}`}>{weekday.day}</label>
+            <ul>
+              {weekday.finishedItems.map((item) => {
+                return <li key={item.id}>{item.todo}</li>;
+              })}
+            </ul>
           </div>
-        </Slide>
-        <Slide index={1}>
-          <div className="weekBar">
-            <ButtonBack className="carButton">👈</ButtonBack>
-            <div className="weekOptions">
-              <h3>{thisWeek}</h3>
-              <button>Save to google Calendar</button>
-            </div>
-            {weekCards.map((weekday) => {
-              return (
-                <div className="weekCard" key={weekday.id}>
-                  <label className={`days ${weekday.day}`}>{weekday.day}</label>
-                  <ul>
-                    {weekday.finishedItems.map((item) => {
-                      return <li key={item.id}>{item.todo}</li>;
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-            <ButtonNext className="carButton">👉</ButtonNext>
-          </div>
-        </Slide>
-      </Slider>
-    </CarouselProvider>
+        );
+      })}
+      <button onClick={goToPreviousWeek}>back</button>
+      <button onClick={goToNextWeek}>next</button>
+    </div>
   );
 };
 

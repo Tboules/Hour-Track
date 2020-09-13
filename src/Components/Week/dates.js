@@ -1,8 +1,6 @@
 import moment from "moment";
 
 //this week
-const firstWeekDay = moment().startOf("week").toDate();
-const lastWeekDay = moment().endOf("week").toDate();
 
 const monthNames = [
   "January",
@@ -19,13 +17,17 @@ const monthNames = [
   "December",
 ];
 
-const startDayOfWeek = firstWeekDay.getDate();
-const monthOfStartDay = monthNames[firstWeekDay.getMonth()];
+export const getThisWeek = (date) => {
+  const firstWeekDay = moment(date).startOf("week").toDate();
+  const lastWeekDay = moment(date).endOf("week").toDate();
+  const startDayOfWeek = firstWeekDay.getDate();
+  const monthOfStartDay = monthNames[firstWeekDay.getMonth()];
 
-const endDayOfWeek = lastWeekDay.getDate();
-const monthOfEndDay = monthNames[lastWeekDay.getMonth()];
+  const endDayOfWeek = lastWeekDay.getDate();
+  const monthOfEndDay = monthNames[lastWeekDay.getMonth()];
 
-const thisWeek = `${monthOfStartDay} ${startDayOfWeek} - ${monthOfEndDay} ${endDayOfWeek}`;
+  return `${monthOfStartDay} ${startDayOfWeek} - ${monthOfEndDay} ${endDayOfWeek}`;
+};
 
 //last week
 const startOfLastWeek = moment().subtract(1, "weeks").startOf("week").toDate();
@@ -40,5 +42,3 @@ const monthOfLastEnd = monthNames[endOfLastWeek.getMonth()];
 const lastWeek = `${monthOfLastStart} ${startDayOfLastWeek} - ${monthOfLastEnd} ${endDayOfLastWeek}`;
 
 //const test = () => console.log(startOfLastWeek);
-
-export { firstWeekDay, thisWeek, lastWeek };

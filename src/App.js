@@ -92,6 +92,7 @@ function App() {
     db.collection("users").doc(userId).collection("finishList").add({
       todo: item.todo,
       time: firebase.firestore.FieldValue.serverTimestamp(),
+      completionTime: "",
     });
     db.collection("users")
       .doc(userId)

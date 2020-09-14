@@ -8,6 +8,7 @@ import { db, auth } from "./firebase";
 import firebase from "firebase";
 import SignUp from "./Components/SignUp/index";
 import SignIn from "./Components/SignIn/index";
+import TimeToComplete from "./Components/TimeToComplete";
 
 function App() {
   const [listItems, setListItems] = React.useState([]);
@@ -111,8 +112,6 @@ function App() {
         const info = {
           username: userName,
           email: email,
-          finishList: [],
-          todoList: [],
         };
         setUserId(userUid);
         db.collection("users").doc(userUid).set(info);
@@ -141,6 +140,7 @@ function App() {
       {route === "home" ? (
         <div>
           <InputForm onListItemChange={handleListItems} />
+          <TimeToComplete />
           <TodoList onFinish={finishListItem} listItems={listItems} />
           <Week finishItems={finishItems} />
         </div>

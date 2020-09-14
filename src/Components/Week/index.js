@@ -2,17 +2,9 @@
 import React from "react";
 import "./Week.css";
 import { getThisWeek } from "./dates";
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-} from "pure-react-carousel";
-import "pure-react-carousel/dist/react-carousel.es.css";
 import moment from "moment";
 
-const NOW = moment();
+// use framer motion to animate the carousel
 
 const Week = ({ finishItems }) => {
   const [currentWeek, setCurrentWeek] = React.useState(new Date());

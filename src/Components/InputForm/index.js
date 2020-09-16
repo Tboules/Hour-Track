@@ -1,10 +1,18 @@
 import React from "react";
 
 const InputForm = ({ onListItemChange }) => {
+  const [todoInput, setTodoInput] = React.useState("");
+
+  const inputCheck = (event) => {
+    setTodoInput(event.target.value);
+  };
+
+  const error = todoInput === "" ? true : false;
+
   return (
-    <form onSubmit={onListItemChange}>
-      <input id="todoListInput" />
-      <button>Let's Do It!</button>
+    <form className="todoInputContainer" onSubmit={onListItemChange}>
+      <input onChange={inputCheck} id="todoListInput" />
+      <button disabled={Boolean(error)}>Let's Do It!</button>
     </form>
   );
 };

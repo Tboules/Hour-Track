@@ -18,6 +18,8 @@ function App() {
   const [password, setPassword] = React.useState("");
   const [route, setRoute] = React.useState(null);
   const [userId, setUserId] = React.useState(null);
+  const [modalDisplay, setModalDisplay] = React.useState("none");
+  const [modalTodo, setModalTodo] = React.useState(null);
 
   //todo database listener
   // finished items database listener
@@ -34,6 +36,7 @@ function App() {
                 id: doc.id,
                 todo: doc.data().todo,
                 time: doc.data().time,
+                completionTime: doc.data().completionTime,
               };
             })
           );
@@ -87,18 +90,37 @@ function App() {
     event.target.reset();
   };
 
+  //handle Modal Open
+  const handleModalOpen = (item) => {
+    if (modalDisplay === "none") {
+      setModalDisplay("block");
+      setModalTodo(item);
+    }
+  };
+
+  const handleModalClose = (event) => {
+    const modal = document.getElementsByClassName("completionForm");
+    if (modal[0] === event.target) {
+      setModalDisplay("none");
+    }
+  };
+
   //handles finished Todo items
-  const finishListItem = (item) => {
+  const finishListItem = (event) => {
+    event.preventDefault();
+    let modalTimeInput = event.target.elements.completionInput.value;
     db.collection("users").doc(userId).collection("finishList").add({
-      todo: item.todo,
+      todo: modalTodo.todo,
       time: firebase.firestore.FieldValue.serverTimestamp(),
-      completionTime: "",
+      completionTime: modalTimeInput,
     });
     db.collection("users")
       .doc(userId)
       .collection("todoList")
-      .doc(item.id)
+      .doc(modalTodo.id)
       .delete();
+    setModalDisplay("none");
+    event.target.reset();
   };
 
   //handles sign up
@@ -139,10 +161,18 @@ function App() {
         toSignUp={() => setRoute("signUp")}
       />
       {route === "home" ? (
-        <div>
+        <div className="homePage">
           <InputForm onListItemChange={handleListItems} />
-          <TimeToComplete />
-          <TodoList onFinish={finishListItem} listItems={listItems} />
+          <TodoList
+            handleModalOpen={handleModalOpen}
+            onFinish={finishListItem}
+            listItems={listItems}
+          />
+          <TimeToComplete
+            handleFinish={finishListItem}
+            modalDisplay={modalDisplay}
+            modalClose={handleModalClose}
+          />
           <Week finishItems={finishItems} />
         </div>
       ) : route === "signUp" ? (

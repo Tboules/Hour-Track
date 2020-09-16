@@ -10,13 +10,14 @@ const Header = ({ route, toSignIn, toSignUp }) => {
   return (
     <div className="navBar">
       <h1 className="title">Epic To-Do List</h1>
+      <div className="space"></div>
       <ul className="userNav">
         {route === "home" ? (
           <li onClick={handleLogOut} className="nav logOut">
             Log Out
           </li>
         ) : (
-          <div>
+          <div className="navList">
             <li onClick={toSignIn} className="nav signIn">
               Sign In
             </li>

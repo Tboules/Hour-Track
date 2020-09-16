@@ -1,5 +1,10 @@
 .App {
-  text-align: center;
+}
+
+.homePage {
+  display: grid;
+  grid-template-rows: 20vh 1fr;
+  background-color: thistle;
 }
 
 button {

@@ -1,17 +1,17 @@
 import React from "react";
 
-const TodoList = ({ listItems, onFinish }) => {
+const TodoList = ({ handleModalOpen, listItems }) => {
   return (
     <div className="todoContainer">
       <ul>
         {listItems.map((item) => {
-          const handleFinish = () => {
-            onFinish(item);
+          const handleModal = () => {
+            handleModalOpen(item);
           };
           return (
             <li id="todoItem" key={item.id}>
               {item.todo}
-              <button onClick={handleFinish}>Done</button>
+              <button onClick={handleModal}>Done</button>
             </li>
           );
         })}

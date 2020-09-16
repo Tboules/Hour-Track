@@ -22,7 +22,6 @@ const Week = ({ finishItems }) => {
   // framer motion for carousel (hard mode)
 
   React.useEffect(() => {
-    console.log("useEffect");
     const freshWeek = [
       { id: 1, day: "Sunday", finishedItems: [] },
       { id: 2, day: "Monday", finishedItems: [] },
@@ -53,33 +52,50 @@ const Week = ({ finishItems }) => {
 
   const goToPreviousWeek = () => {
     setCurrentWeek(moment(currentWeek).subtract(1, "weeks").toDate());
-    console.log(currentWeek);
   };
 
   const goToNextWeek = () => {
     setCurrentWeek(moment(currentWeek).add(1, "weeks").toDate());
   };
 
+  const totalHours = (arr) => {
+    return arr.reduce((acc, itemTime) => {
+      return (acc += Number(itemTime.completionTime));
+    }, 0);
+  };
+
   return (
-    <div className="weekBar">
+    <div className="weekContainer">
       <div className="weekOptions">
-        <h3>{getThisWeek(currentWeek)}</h3>
-        <button>Save to google Calendar</button>
+        <button className="dateBack" onClick={goToPreviousWeek}>
+          back
+        </button>
+        <h3 className="displayDate">{getThisWeek(currentWeek)}</h3>
+        <button className="dateNext" onClick={goToNextWeek}>
+          next
+        </button>
       </div>
-      {weekCards.map((weekday) => {
-        return (
-          <div className="weekCard" key={weekday.id}>
-            <label className={`days ${weekday.day}`}>{weekday.day}</label>
-            <ul>
-              {weekday.finishedItems.map((item) => {
-                return <li key={item.id}>{item.todo}</li>;
-              })}
-            </ul>
-          </div>
-        );
-      })}
-      <button onClick={goToPreviousWeek}>back</button>
-      <button onClick={goToNextWeek}>next</button>
+      <div className="weekBar">
+        {weekCards.map((weekday) => {
+          return (
+            <div className="weekCard" key={weekday.id}>
+              <label className={`days ${weekday.day}`}>{weekday.day}</label>
+              <ul>
+                {weekday.finishedItems.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      {item.todo} {item.completionTime}
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="totalHours">
+                Total Hours: {totalHours(weekday.finishedItems)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

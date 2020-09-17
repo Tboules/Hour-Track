@@ -7,6 +7,7 @@
 }
 
 .title {
+  text-align: start;
   flex: 1;
 }
 
@@ -16,12 +17,12 @@
 
 .navList {
   display: flex;
-  justify-content: center;
+  margin-left: auto;
 }
 
 .logOut {
   display: flex;
-  justify-self: center;
+  margin-left: auto;
 }
 
 .nav {

@@ -4,7 +4,7 @@ const SignIn = ({ email, passWord, onSignIn }) => {
   return (
     <div className="signUpContainer">
       <form onSubmit={onSignIn} className="signUp">
-        <h1>Welcome Back!</h1>
+        <h1 className="signTitle">Welcome Back!</h1>
         <input onChange={email} className="iUp" placeholder="Email" />
         <input
           type="password"

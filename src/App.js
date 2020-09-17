@@ -9,6 +9,7 @@ import firebase from "firebase";
 import SignUp from "./Components/SignUp/index";
 import SignIn from "./Components/SignIn/index";
 import TimeToComplete from "./Components/TimeToComplete";
+import Background from "./Components/Background";
 
 function App() {
   const [listItems, setListItems] = React.useState([]);
@@ -155,6 +156,7 @@ function App() {
 
   return (
     <div className="App">
+      <Background />
       <Header
         route={route}
         toSignIn={() => setRoute("signIn")}

@@ -9,7 +9,7 @@ const Header = ({ route, toSignIn, toSignUp }) => {
 
   return (
     <div className="navBar">
-      <h1 className="title">Epic To-Do List</h1>
+      <h1 className="title">Hour Track</h1>
       <div className="space"></div>
       <ul className="userNav">
         {route === "home" ? (

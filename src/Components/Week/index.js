@@ -80,11 +80,12 @@ const Week = ({ finishItems }) => {
           return (
             <div className="weekCard" key={weekday.id}>
               <label className={`days ${weekday.day}`}>{weekday.day}</label>
-              <ul>
+              <ul className="weekList">
                 {weekday.finishedItems.map((item) => {
                   return (
-                    <li key={item.id}>
-                      {item.todo} {item.completionTime}
+                    <li className="weekListItem" key={item.id}>
+                      {item.todo}
+                      <div className="numHours">{item.completionTime}</div>
                     </li>
                   );
                 })}

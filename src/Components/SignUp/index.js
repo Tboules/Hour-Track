@@ -7,7 +7,7 @@ const SignUp = ({ email, passWord, userName, onRegister }) => {
   return (
     <div className="signUpContainer">
       <form onSubmit={onRegister} className="signUp">
-        <h1>Let's Get Started!</h1>
+        <h1 className="signTitle">Let's Get Started!</h1>
         <input onChange={userName} className="iUp" placeholder="Username" />
         <input onChange={email} className="iUp" placeholder="Email" />
         <input

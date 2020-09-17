@@ -30,15 +30,15 @@ export const getThisWeek = (date) => {
 };
 
 //last week
-const startOfLastWeek = moment().subtract(1, "weeks").startOf("week").toDate();
-const endOfLastWeek = moment().subtract(1, "weeks").endOf("week").toDate();
+// const startOfLastWeek = moment().subtract(1, "weeks").startOf("week").toDate();
+// const endOfLastWeek = moment().subtract(1, "weeks").endOf("week").toDate();
 
-const startDayOfLastWeek = startOfLastWeek.getDate();
-const monthOfLastStart = monthNames[startOfLastWeek.getMonth()];
+// const startDayOfLastWeek = startOfLastWeek.getDate();
+// const monthOfLastStart = monthNames[startOfLastWeek.getMonth()];
 
-const endDayOfLastWeek = endOfLastWeek.getDate();
-const monthOfLastEnd = monthNames[endOfLastWeek.getMonth()];
+// const endDayOfLastWeek = endOfLastWeek.getDate();
+// const monthOfLastEnd = monthNames[endOfLastWeek.getMonth()];
 
-const lastWeek = `${monthOfLastStart} ${startDayOfLastWeek} - ${monthOfLastEnd} ${endDayOfLastWeek}`;
+//const lastWeek = `${monthOfLastStart} ${startDayOfLastWeek} - ${monthOfLastEnd} ${endDayOfLastWeek}`;
 
 //const test = () => console.log(startOfLastWeek);

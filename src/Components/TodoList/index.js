@@ -1,17 +1,20 @@
 import React from "react";
+import "./TodoList.css";
 
 const TodoList = ({ handleModalOpen, listItems }) => {
   return (
     <div className="todoContainer">
-      <ul>
+      <ul className="listedTodos">
         {listItems.map((item) => {
           const handleModal = () => {
             handleModalOpen(item);
           };
           return (
-            <li id="todoItem" key={item.id}>
+            <li className="singleTodo" id="todoItem" key={item.id}>
               {item.todo}
-              <button onClick={handleModal}>Done</button>
+              <button className="todoDoneButton" onClick={handleModal}>
+                Done
+              </button>
             </li>
           );
         })}

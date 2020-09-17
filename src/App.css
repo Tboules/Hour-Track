@@ -3,8 +3,7 @@
 
 .homePage {
   display: grid;
-  grid-template-rows: 20vh 1fr;
-  background-color: thistle;
+  grid-template-rows: 47px 260px 1fr;
 }
 
 button {

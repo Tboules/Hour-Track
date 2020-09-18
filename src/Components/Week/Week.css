@@ -1,4 +1,5 @@
 .weekContainer {
+  position: relative;
   box-shadow: inset 0px 1px 3px 2px rgba(0, 0, 0, 0.15);
   /* background-color: rgba(104, 170, 192, 0.01); */
   width: 90%;
@@ -9,7 +10,18 @@
   border-radius: 5px 5px 5px 5px;
 }
 
+.weekBarTrack {
+  display: flex;
+  flex-direction: row;
+  height: 370px;
+}
+
 .weekBar {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: auto;
@@ -54,19 +66,34 @@
 
 .weekCard:nth-child(even) {
   background-color: rgba(78, 174, 93, 0.45);
-  border-radius: 10px, 10px, 10px, 10px;
 }
 
 .weekCard {
   background-color: rgba(78, 174, 93, 0.6);
-  border-radius: 10px, 10px, 10px, 10px;
+  border-radius: 4px;
   display: grid;
-  min-height: 350px;
+  height: 350px;
   grid-template-rows: 40px auto 40px;
   margin: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding-left: 6px;
   padding-right: 6px;
+}
+
+.weekList::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(227, 108, 102, 0);
+  border-radius: 4px;
+}
+
+.weekList::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgba(227, 108, 102, 0);
+}
+
+.weekList::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(78, 174, 93, 0.6);
 }
 
 .days {
@@ -87,6 +114,7 @@
 
 .weekList {
   padding: 5px;
+  overflow-y: auto;
 }
 
 .weekListItem {
@@ -110,6 +138,19 @@
 
 @media only screen and (max-width: 1450px) {
   .weekBar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .weekCard {
+    width: 230px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .weekBar {
+    top: 120px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

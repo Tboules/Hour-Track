@@ -1,0 +1,9 @@
+@media only screen and (max-width: 780px) {
+  .todoContainer {
+    width: 90%;
+  }
+
+  .inputTD {
+    width: 90%;
+  }
+}

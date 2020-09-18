@@ -5,6 +5,7 @@
   height: auto;
   padding: 30px;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.4);
+  color: rgb(70, 70, 70);
 }
 
 .signTitle {
@@ -19,12 +20,38 @@
 }
 
 .iUp {
-  margin: 1px;
+  margin: auto;
+  margin-bottom: 4px;
+  border-radius: 2px 2px 2px 2px;
+  border: none;
+  height: 34px;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.4);
+  padding-left: 15px;
+  font-size: 1rem;
+  color: rgb(80, 80, 80);
+  width: 75%;
 }
 
 .signUpButton {
-  width: 80px;
-  height: 25px;
+  width: 150px;
+  height: 40px;
   align-self: center;
   margin-top: 15px;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border: none;
+  background-image: linear-gradient(
+    to left,
+    rgba(227, 108, 102, 0.8),
+    rgba(78, 174, 93, 0.6)
+  );
+  color: white;
+  font-size: 20px;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 800px) {
+  .signUpContainer {
+    width: 45vw;
+  }
 }

@@ -91,6 +91,14 @@ function App() {
     event.target.reset();
   };
 
+  const handleItemDelete = (item) => {
+    db.collection("users")
+      .doc(userId)
+      .collection("todoList")
+      .doc(item.id)
+      .delete();
+  };
+
   //handle Modal Open
   const handleModalOpen = (item) => {
     if (modalDisplay === "none") {
@@ -169,6 +177,7 @@ function App() {
             handleModalOpen={handleModalOpen}
             onFinish={finishListItem}
             listItems={listItems}
+            handleItemDelete={handleItemDelete}
           />
           <TimeToComplete
             handleFinish={finishListItem}

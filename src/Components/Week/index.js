@@ -3,6 +3,7 @@ import React from "react";
 import "./Week.css";
 import { getThisWeek } from "./dates";
 import moment from "moment";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // use framer motion to animate the carousel
 
@@ -64,15 +65,17 @@ const Week = ({ finishItems }) => {
     }, 0);
   };
 
+  console.log(moment(currentWeek).subtract(1, "weeks").week());
+
   return (
     <div className="weekContainer">
       <div className="weekOptions">
         <button className="dateBack" onClick={goToPreviousWeek}>
-          back
+          <FaAngleLeft className="arrow" />
         </button>
         <h3 className="displayDate">{getThisWeek(currentWeek)}</h3>
         <button className="dateNext" onClick={goToNextWeek}>
-          next
+          <FaAngleRight className="arrow" />
         </button>
       </div>
       <div className="weekBar">
@@ -91,7 +94,10 @@ const Week = ({ finishItems }) => {
                 })}
               </ul>
               <div className="totalHours">
-                Total Hours: {totalHours(weekday.finishedItems)}
+                Total Hours:
+                <div className="totalNum">
+                  {totalHours(weekday.finishedItems)}
+                </div>
               </div>
             </div>
           );

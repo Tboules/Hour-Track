@@ -1,7 +1,12 @@
 import React from "react";
 import "./TodoList.css";
+import { FaCheck, FaTrash } from "react-icons/fa";
 
-const TodoList = ({ handleModalOpen, listItems }) => {
+const red = {
+  backgroundColor: "rgba(227, 108, 102, 0.8)",
+};
+
+const TodoList = ({ handleItemDelete, handleModalOpen, listItems }) => {
   return (
     <div className="todoContainer">
       <ul className="listedTodos">
@@ -9,11 +14,21 @@ const TodoList = ({ handleModalOpen, listItems }) => {
           const handleModal = () => {
             handleModalOpen(item);
           };
+          const handleDelete = () => {
+            handleItemDelete(item);
+          };
           return (
             <li className="singleTodo" id="todoItem" key={item.id}>
               {item.todo}
               <button className="todoDoneButton" onClick={handleModal}>
-                Done
+                <FaCheck className="trash" />
+              </button>
+              <button
+                style={red}
+                className="todoDoneButton"
+                onClick={handleDelete}
+              >
+                <FaTrash className="trash" />
               </button>
             </li>
           );

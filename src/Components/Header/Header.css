@@ -58,3 +58,13 @@
   margin: 20px;
   justify-content: center;
 }
+
+@media only screen and (max-width: 416px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .nav {
+    font-size: 14px;
+  }
+}

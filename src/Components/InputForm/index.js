@@ -46,12 +46,16 @@ const InputForm = ({ onListItemChange }) => {
       onSubmit={onListItemChange}
     >
       <input
-        className="inputTD"
         style={inputStyle}
+        className="inputTD"
         onChange={inputCheck}
         id="todoListInput"
       />
-      <button style={buttonStyle} disabled={Boolean(error)}>
+      <button
+        style={buttonStyle}
+        className="inputButt"
+        disabled={Boolean(error)}
+      >
         Let's Do It!
       </button>
     </form>
